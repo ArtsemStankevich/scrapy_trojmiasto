@@ -12,6 +12,10 @@ BOT_NAME = "trojmiasto"
 SPIDER_MODULES = ["trojmiasto.spiders"]
 NEWSPIDER_MODULE = "trojmiasto.spiders"
 
+ITEM_PIPELINES = {
+    'trojmiasto.pipelines.ValidationPipeline': 100,
+}
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "trojmiasto (+http://www.yourdomain.com)"

@@ -13,6 +13,11 @@ class TrojmiastoSpider(scrapy.Spider):
     name = "trojmiasto"
     start_urls = StartURLSFromFile().start_urls
 
+    custom_settings = {
+    'LOG_LEVEL': 'ERROR'
+    }
+
+
     def parse(self, response):
         for poi in response.css("div.basicInfo__item.basicInfo__item--presentationNotPaid"):
             address_info = poi.css("a.objectAddress__link span::text").getall()
@@ -28,7 +33,8 @@ class TrojmiastoSpider(scrapy.Spider):
             res = {
                 "name": poi.css("h2 a.objectName__link span::text").get(),
                 "categories": poi.css("a.objectTags__item::text").getall(),
-                "address": address
+                "address": address,
+                'url': response.url
             }
             yield res
         next_page = response.css('a[title="następna"]::attr("href")').get()
